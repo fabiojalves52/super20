@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atendimento - Chamada de Caixa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="atendente-body">
+    <div class="container">
+        <h1>Controle de Atendimento</h1>
+        <div class="botoes-grid">
+            <button class="btn-caixa" onclick="chamar(1)">CAIXA 1</button>
+            <button class="btn-caixa" onclick="chamar(2)">CAIXA 2</button>
+            <button class="btn-caixa" onclick="chamar(3)">CAIXA 3</button>
+            <button class="btn-caixa" onclick="chamar(4)">CAIXA 4</button>
+            <button class="btn-caixa" onclick="chamar(5)">CAIXA 5</button>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="cliente.js"></script>
+</body>
+</html>

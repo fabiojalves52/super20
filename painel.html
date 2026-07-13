@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Chamadas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="painel-body">
+    <div id="display-chamada" class="painel-container">
+        <div class="texto-chamada">
+            <p class="label">DIRIJA-SE AO</p>
+            <h1 id="caixa-numero" class="caixa-destaque">AGUARDANDO...</h1>
+        </div>
+    </div>
+
+    <!-- Áudio de notificação -->
+    <audio id="audio-ding" src="ding.mp3" preload="auto"></audio>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="painel.js"></script>
+</body>
+</html>

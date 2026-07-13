@@ -1,0 +1,16 @@
+{
+  "name": "painel-chamada",
+  "version": "1.0.0",
+  "description": "Sistema de painel de chamada em tempo real",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2"
+  }
+}
