@@ -23,14 +23,16 @@ function atualizarPainel(numero) {
         // 3. Toca o som de alerta (ding)
         tocarAlerta();
 
-        // 4. Executa a voz (SpeechSynthesis)
-        falar(`Caixa ${numero}`);
+        // 4. Executa a voz com um atraso de 2 segundos (2000 milissegundos)
+        // Isso garante que o "ding" termine antes da voz começar
+        setTimeout(() => {
+            falar(`Caixa ${numero}`);
+        }, 2000); 
 
         // 5. Finaliza animação com fade-in
         container.classList.remove('fade-out');
     }, 500);
 }
-
 /**
  * Toca o arquivo de áudio ding.mp3
  */
