@@ -3,67 +3,71 @@ const display = document.getElementById('caixa-numero');
 const container = document.querySelector('.texto-chamada');
 const audioDing = document.getElementById('audio-ding');
 
-// Escuta por novas chamadas vindas do servidor
 socket.on('nova-chamada', (numero) => {
+    console.log("Nova chamada recebida para o Caixa:", numero);
     atualizarPainel(numero);
 });
 
-/**
- * Atualiza o visual do painel com animação e som
- */
 function atualizarPainel(numero) {
-    // 1. Inicia animação de fade-out
+    if (!container) return;
+    
+    // Inicia animação
     container.classList.add('fade-out');
 
     setTimeout(() => {
-        // 2. Atualiza o texto
-        display.innerText = `CAIXA ${numero}`;
+        // Atualiza o texto
+        if (display) display.innerText = `CAIXA ${numero}`;
         
-        // 3. Toca o som de alerta (ding)
-        tocarAlerta();
+        // Tenta tocar o som (Ding)
+        try {
+            tocarAlerta();
+        } catch (e) {
+            console.error("Erro ao tocar som:", e);
+        }
 
-        // 4. Executa a voz com um atraso de 2 segundos (2000ms)
+        // Tenta falar (Voz) - Espera 2 segundos
         setTimeout(() => {
-            falar(`Caixa ${numero}`);
+            try {
+                falar(`Caixa ${numero}`);
+            } catch (e) {
+                console.error("Erro na voz:", e);
+            }
         }, 2000); 
 
-        // 5. Finaliza animação com fade-in
+        // Finaliza animação
         container.classList.remove('fade-out');
     }, 500);
 }
 
-/**
- * Toca o arquivo de áudio ding.mp3
- */
 function tocarAlerta() {
     if (audioDing) {
-        audioDing.volume = 1;
+        audioDing.volume = 1.0;
         audioDing.currentTime = 0;
-        audioDing.play().catch(e => console.error("Erro ao tocar áudio:", e));
+        // O play() retorna uma promessa, precisamos tratar o erro de autoplay
+        audioDing.play().catch(error => {
+            console.log("O navegador bloqueou o som automático. Clique na tela uma vez!");
+        });
     }
 }
 
-/**
- * Utiliza a API de síntese de voz do navegador
- */
 function falar(texto) {
     if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel(); // Cancela falas anteriores
-
+        window.speechSynthesis.cancel();
         const msg = new SpeechSynthesisUtterance();
         msg.text = texto;
         msg.lang = 'pt-BR';
-        msg.volume = 1;   
-        msg.rate = 0.9;   
-        msg.pitch = 1;    
-        
+        msg.volume = 1.0;
+        msg.rate = 0.9;
         window.speechSynthesis.speak(msg);
     }
 }
 
-// --- MANTÉM O SERVIDOR ACORDADO (ANTI-SONO) ---
-// Este código fica fora de qualquer função para rodar apenas uma vez
+// ANTI-SONO
 setInterval(() => {
-    console.log("Mantendo o servidor ativo...");
-    fetch('/').then(() => console.log("Servidor respondeu!")).catch(() => {});
-}, 600000); // 10 minutos
+    fetch('/').catch(() => {});
+}, 600000);
+
+// LEMBRETE: Clique na tela ao carregar a página!
+document.addEventListener('click', () => {
+    console.log("Áudio autorizado pelo usuário!");
+}, { once: true });
