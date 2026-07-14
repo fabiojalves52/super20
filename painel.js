@@ -45,12 +45,24 @@ function tocarAlerta() {
  * Utiliza a API de síntese de voz do navegador
  * @param {string} texto - O texto a ser falado
  */
+/**
+ * Utiliza a API de síntese de voz do navegador
+ * @param {string} texto - O texto a ser falado
+ */
 function falar(texto) {
     if ('speechSynthesis' in window) {
+        // Cancela qualquer fala anterior para não embolar
+        window.speechSynthesis.cancel();
+
         const msg = new SpeechSynthesisUtterance();
         msg.text = texto;
         msg.lang = 'pt-BR';
-        msg.rate = 1;
+        
+        // --- ALTERAÇÕES PARA VOLUME E CLAREZA ---
+        msg.volume = 1;   // Força o volume no máximo (0 a 1)
+        msg.rate = 0.9;   // Fala um pouco mais devagar para ser mais nítido
+        msg.pitch = 1;    // Tom de voz normal
+        
         window.speechSynthesis.speak(msg);
     }
 }
