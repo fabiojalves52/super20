@@ -10,7 +10,6 @@ socket.on('nova-chamada', (numero) => {
 
 /**
  * Atualiza o visual do painel com animação e som
- * @param {number} numero - O número do caixa chamado
  */
 function atualizarPainel(numero) {
     // 1. Inicia animação de fade-out
@@ -23,8 +22,7 @@ function atualizarPainel(numero) {
         // 3. Toca o som de alerta (ding)
         tocarAlerta();
 
-        // 4. Executa a voz com um atraso de 2 segundos (2000 milissegundos)
-        // Isso garante que o "ding" termine antes da voz começar
+        // 4. Executa a voz com um atraso de 2 segundos (2000ms)
         setTimeout(() => {
             falar(`Caixa ${numero}`);
         }, 2000); 
@@ -33,11 +31,13 @@ function atualizarPainel(numero) {
         container.classList.remove('fade-out');
     }, 500);
 }
+
 /**
  * Toca o arquivo de áudio ding.mp3
  */
 function tocarAlerta() {
     if (audioDing) {
+        audioDing.volume = 1;
         audioDing.currentTime = 0;
         audioDing.play().catch(e => console.error("Erro ao tocar áudio:", e));
     }
@@ -45,26 +45,25 @@ function tocarAlerta() {
 
 /**
  * Utiliza a API de síntese de voz do navegador
- * @param {string} texto - O texto a ser falado
- */
-/**
- * Utiliza a API de síntese de voz do navegador
- * @param {string} texto - O texto a ser falado
  */
 function falar(texto) {
     if ('speechSynthesis' in window) {
-        // Cancela qualquer fala anterior para não embolar
-        window.speechSynthesis.cancel();
+        window.speechSynthesis.cancel(); // Cancela falas anteriores
 
         const msg = new SpeechSynthesisUtterance();
         msg.text = texto;
         msg.lang = 'pt-BR';
-        
-        // --- ALTERAÇÕES PARA VOLUME E CLAREZA ---
-        msg.volume = 1;   // Força o volume no máximo (0 a 1)
-        msg.rate = 0.9;   // Fala um pouco mais devagar para ser mais nítido
-        msg.pitch = 1;    // Tom de voz normal
+        msg.volume = 1;   
+        msg.rate = 0.9;   
+        msg.pitch = 1;    
         
         window.speechSynthesis.speak(msg);
     }
 }
+
+// --- MANTÉM O SERVIDOR ACORDADO (ANTI-SONO) ---
+// Este código fica fora de qualquer função para rodar apenas uma vez
+setInterval(() => {
+    console.log("Mantendo o servidor ativo...");
+    fetch('/').then(() => console.log("Servidor respondeu!")).catch(() => {});
+}, 600000); // 10 minutos
