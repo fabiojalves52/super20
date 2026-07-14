@@ -16,3 +16,11 @@ function chamar(numero) {
         socket.emit('chamar-caixa', numero);
     } else {
         // Se a conexão caiu (servidor dormindo), avisa e recarrega para acordar
+        console.log("Servidor em espera. Tentando reconectar...");
+        location.reload(); 
+    }
+}
+
+// Monitoramento de conexão no console
+socket.on('connect', () => console.log("Conectado ao servidor!"));
+socket.on('disconnect', () => console.log("Conexão perdida. Tentando voltar..."));
