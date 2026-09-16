@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Super 20 - Avisos de voz</title>
+    <link rel="stylesheet" href="avisos.css">
+</head>
+<body>
+    <main class="app-avisos">
+        <header class="cabecalho">
+            <img class="marca" src="logo.png" alt="Super 20">
+            <nav aria-label="Outras telas"><a href="/">Caixas</a><a href="/painel" target="_blank" rel="noopener">Abrir painel da TV ↗</a></nav>
+        </header>
+        <section class="introducao">
+            <p class="sobretitulo">SUPER 20 · COMUNICAÇÃO NA LOJA</p>
+            <h1>Avisos de voz</h1>
+            <p>Digite a mensagem. O mascote aparece na TV e fala para os clientes.</p>
+        </section>
+        <div class="conexao" role="status"><span id="ponto-conexao"></span><span id="conexao-texto">Conectando...</span></div>
+        <section class="cartao">
+            <form id="form-aviso">
+                <label for="texto-aviso">O que você quer anunciar?</label>
+                <textarea id="texto-aviso" name="texto" rows="6" minlength="3" maxlength="500" required placeholder="Ex.: Atenção, clientes! Temos novidades no setor de utilidades. Venham conferir!" aria-describedby="ajuda-texto contador"></textarea>
+                <div class="apoio"><small id="ajuda-texto">O texto não aparece na TV; somente a voz e o mascote.</small><small id="contador">0 / 500</small></div>
+                <div class="acoes"><button id="enviar-aviso" class="principal" type="submit" disabled>Enviar para a TV</button><button id="ouvir-previa" type="button">Ouvir neste aparelho</button></div>
+                <p id="retorno" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+        <section class="historico">
+            <div class="historico-titulo"><h2>Últimos avisos</h2><span>Nesta aba</span></div>
+            <p id="historico-vazio">Os avisos enviados e o andamento da leitura aparecerão aqui.</p>
+            <ol id="lista-avisos"></ol>
+        </section>
+        <footer>Na TV, abra o painel e clique para iniciar. As chamadas de caixa têm prioridade sobre os avisos.</footer>
+    </main>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="avisos.js"></script>
+</body>
+</html>

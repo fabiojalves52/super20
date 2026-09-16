@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super 20 - Controle</title>
+    <link href="assets/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="atendente-body">
+    <div class="container text-center">
+        <img src="logo.png" class="logo-controle" alt="Super 20">
+        <h1 class="fw-bold my-4 text-dark">PAINEL DE CONTROLE</h1>
+        
+        <div class="row g-4 justify-content-center">
+            <div class="col-6 col-md-4">
+                <button class="btn-caixa-laranja" onclick="chamar(1)">CAIXA 1</button>
+            </div>
+            <div class="col-6 col-md-4">
+                <button class="btn-caixa-laranja" onclick="chamar(2)">CAIXA 2</button>
+            </div>
+            <div class="col-6 col-md-4">
+                <button class="btn-caixa-laranja" onclick="chamar(3)">CAIXA 3</button>
+            </div>
+            <div class="col-6 col-md-6">
+                <button class="btn-caixa-laranja" onclick="chamar(4)">CAIXA 4</button>
+            </div>
+            <div class="col-6 col-md-6">
+                <button class="btn-caixa-laranja" onclick="chamar(5)">CAIXA 5</button>
+            </div>
+        </div>
+
+        <nav class="atalhos" aria-label="Outras telas"><a href="/painel" target="_blank" rel="noopener">Abrir painel da TV</a><a href="/avisos" target="_blank" rel="noopener">Enviar aviso de voz</a></nav>
+        <div class="mt-4">
+            <span class="badge bg-white text-dark border p-2">
+                <span id="status-indicator" class="rounded-circle bg-danger d-inline-block" style="width:10px; height:10px;"></span>
+                <span id="status-text" class="ms-1">offline</span>
+            </span>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="cliente.js"></script>
+</body>
+</html>

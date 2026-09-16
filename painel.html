@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Super 20</title>
+    <link href="assets/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="transicao.css">
+</head>
+<body class="painel-body">
+    <div id="overlay-inicio" onclick="iniciarSistema()">
+        <img src="logo.png" class="logo-inicio" alt="Super 20">
+        <p class="h2">CLIQUE PARA INICIAR O PAINEL</p>
+    </div>
+
+    <video id="video-player" style="display:none" muted playsinline></video>
+    <img src="logo.png" class="logo-fixa" alt="Logo Super 20">
+
+    <div id="transicao-mascote" aria-hidden="true">
+        <div class="trilhas-voo"><i></i><i></i><i></i><i></i></div>
+        <div class="mascote-voo">
+            <img id="imagem-mascote" src="assets/mascote-super20.png" alt="" draggable="false">
+        </div>
+        <div class="mensagem-transicao">Vem com a gente!</div>
+    </div>
+
+    <div class="painel-container" id="container-painel">
+        <div class="container-fluid">
+            <div id="idle-content">
+                <h1 class="mensagem-boas-vindas">BEM-VINDO</h1>
+                <p class="display-4 fw-bold text-secondary">AGUARDANDO CHAMADA...</p>
+            </div>
+            <div id="aviso-content" style="display:none">
+                <div class="mascote-locutor">
+                    <img src="assets/mascote-megafone.png" alt="Mascote Super 20 com megafone">
+                    <div class="ondas-voz" aria-hidden="true"><i></i><i></i><i></i></div>
+                </div>
+            </div>
+            <div id="chamada-content" style="display:none">
+                <p class="label-texto">DIRIJA-SE AO</p>
+                <h1 id="caixa-numero" class="caixa-texto">CAIXA 1</h1>
+            </div>
+        </div>
+    </div>
+
+    <audio id="audio-ding" src="ding.mp3" preload="auto"></audio>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="config-painel.js"></script>
+    <script src="painel.js"></script>
+</body>
+</html>
