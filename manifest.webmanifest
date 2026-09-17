@@ -1,9 +1,9 @@
 {
-  "id": "/painel",
-  "name": "Painel Super 20",
+  "id": "/",
+  "name": "Controle Super 20",
   "short_name": "Super 20",
   "description": "Painel de chamadas da Super 20",
-  "start_url": "/painel",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
