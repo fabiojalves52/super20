@@ -1,0 +1,25 @@
+{
+  "id": "/painel",
+  "name": "Painel Super 20",
+  "short_name": "Super 20",
+  "description": "Painel de chamadas da Super 20",
+  "start_url": "/painel",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#e30613",
+  "icons": [
+    {
+      "src": "/super20-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/super20-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
