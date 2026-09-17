@@ -21,6 +21,21 @@ let idleTimer, transitionTimer, speechTimer, playbackTimer, voiceTimer;
 let avisoAtual = null;
 const filaAvisos = [];
 const videosComErro = new Set();
+let bloqueioTela = null;
+
+// Mantém a tela da TV ativa enquanto o painel estiver aberto.
+async function ativarAntiSono() {
+    if (!iniciado || !('wakeLock' in navigator) || bloqueioTela) return;
+    try {
+        bloqueioTela = await navigator.wakeLock.request('screen');
+        bloqueioTela.addEventListener('release', () => { bloqueioTela = null; });
+    } catch (error) {
+        // Alguns aparelhos/navegadores não oferecem esse recurso.
+    }
+}
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') ativarAntiSono();
+});
 
 function tempo(valor, padrao) {
     return Number.isFinite(Number(valor)) && Number(valor) >= 0 ? Number(valor) : padrao;
@@ -77,6 +92,7 @@ function iniciarSistema() {
     if (iniciado) return;
     iniciado = true;
     overlay.classList.add('encerrado');
+    ativarAntiSono();
     mostrarEspera();
     // Habilita o elemento de áudio a partir do clique na própria TV.
     if (audioDing) {
